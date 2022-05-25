@@ -83,6 +83,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.1, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "instance_particles"
+}, {
+"args": [  ],
+"method": "instance_particles"
+} ]
+}
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 6.5 )
@@ -109,6 +126,7 @@ position = Vector2( 1, 12.5 )
 shape = SubResource( 6 )
 
 [node name="Camera" type="Camera2D" parent="."]
+visible = false
 current = true
 limit_left = 0
 limit_top = 0

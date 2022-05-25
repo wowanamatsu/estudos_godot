@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const PARTICLES: PackedScene = preload("res://scenes/player/run_particles.tscn")
+
 var velocity: Vector2
 export (int) var Speed = 60
 
@@ -34,3 +36,10 @@ func verify_direction() -> void:
 		sprite.flip_h = false
 	elif velocity.x < 0:
 		sprite.flip_h = true
+
+
+func instance_particles() -> void:
+	var particle = PARTICLES.instance()
+	get_tree().root.call_deferred("add_child", particle)
+	particle.global_position = global_position + Vector2(0, 16)
+	particle.play_particle()
