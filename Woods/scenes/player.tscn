@@ -104,7 +104,7 @@ tracks/1/keys = {
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 6.5 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=["player"]]
 script = ExtResource( 2 )
 Speed = 120
 
