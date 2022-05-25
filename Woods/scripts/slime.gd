@@ -1,17 +1,47 @@
 extends KinematicBody2D
 
+onready var animation: AnimationPlayer = get_node("Animation")
+onready var sprite: Sprite = get_node("Sprite")
+
 var player_ref = null
 var velocity: Vector2
 
 export (int) var speed = 60
 
 func _physics_process(_delta: float) -> void:
+	move()
+	animate()
+	verify_direction()
+	
+	
+func move() -> void:
 	if player_ref != null:
 		var distance: Vector2 =  player_ref.global_position - global_position
 		var direction: Vector2 = distance.normalized()
+		var distance_length: float = distance.length()
 		
-		velocity = direction * speed
-		velocity = move_and_slide(velocity)
+		if distance_length <= 5:
+			velocity = Vector2.ZERO
+		else:
+			velocity = direction * speed
+	else:
+		velocity = Vector2.ZERO
+		
+	velocity = move_and_slide(velocity)
+
+
+func animate() -> void:
+	if velocity != Vector2.ZERO:
+		animation.play("walk")
+	else:
+		animation.play("idle")
+
+
+func verify_direction() -> void:
+	if velocity.x >= 0:
+		sprite.flip_h = false
+	elif velocity.x < 0:
+		sprite.flip_h = true
 
 
 func _on_body_entered(body):
@@ -20,5 +50,5 @@ func _on_body_entered(body):
 
 
 func _on_body_exited(body):
-	if body.is_in_group("plaier"):
+	if body.is_in_group("player"):
 		player_ref = null
